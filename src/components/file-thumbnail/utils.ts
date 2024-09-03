@@ -139,13 +139,13 @@ export function fileData(file: ExtendFile | string) {
 
   // File
   return {
-    key: file.preview,
-    name: file.name,
-    size: file.size,
-    path: file.path,
-    type: file.type,
-    preview: file.preview,
-    lastModified: file.lastModified,
-    lastModifiedDate: file.lastModifiedDate,
+    key: file?.preview || '', // Ensure the preview is accessible or fallback to an empty string
+    name: file?.name || '', // Fallback to an empty string if name is undefined
+    size: file?.size || 0, // Default to 0 if size is undefined
+    path: file?.path || '', // Fallback to empty string if path is undefined
+    type: file?.type || 'unknown', // Default to 'unknown' if type is undefined
+    preview: file?.preview || '', // Fallback to empty string if preview is undefined
+    lastModified: file?.lastModified || 0, // Default to 0 if lastModified is undefined
+    lastModifiedDate: file?.lastModifiedDate || null, // Default to null if lastModifiedDate is undefined
   };
 }

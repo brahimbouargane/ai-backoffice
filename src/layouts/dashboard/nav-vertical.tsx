@@ -71,6 +71,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
   return (
     <Box
       component="nav"
+      className="bg-black"
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.W_VERTICAL },

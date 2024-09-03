@@ -26,8 +26,8 @@ export default function NavUpgrade() {
     >
       <Stack alignItems="center">
         <Box sx={{ position: 'relative' }}>
-          <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 48, height: 48 }} />
-          <Label
+          <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 60, height: 60 }} />
+          {/* <Label
             color="success"
             variant="filled"
             sx={{
@@ -40,7 +40,7 @@ export default function NavUpgrade() {
             }}
           >
             Free
-          </Label>
+          </Label> */}
         </Box>
 
         <Stack spacing={0.5} sx={{ mt: 1.5, mb: 2 }}>
@@ -53,8 +53,11 @@ export default function NavUpgrade() {
           </Typography>
         </Stack>
 
-        <Button variant="contained" href={paths.minimalUI} target="_blank" rel="noopener">
+        {/* <Button variant="contained" href={paths.minimalUI} target="_blank" rel="noopener">
           Upgrade to Pro
+        </Button> */}
+        <Button variant="contained" href={paths.auth.login} rel="noopener">
+          Logout
         </Button>
       </Stack>
     </Stack>
