@@ -11,6 +11,8 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
+import { CardHeader } from '@mui/material';
+
 // hooks
 import { useCopyToClipboard } from 'src/hooks/use-copy-to-clipboard';
 // routes
@@ -21,6 +23,8 @@ import { useDoubleClick } from 'src/hooks/use-double-click';
 import Iconify from 'src/components/iconify';
 import { useSnackbar } from 'src/components/snackbar';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import ComponentBlock from '../component-block';
+import BasicTable from '../mui/table-view/basic-table';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +63,7 @@ export default function CopyToClipboardView() {
 
   return (
     <>
-      <Box
+      {/* <Box
         sx={{
           py: 5,
           bgcolor: (theme) => (theme.palette.mode === 'light' ? 'grey.200' : 'grey.800'),
@@ -71,16 +75,16 @@ export default function CopyToClipboardView() {
             links={[{ name: 'Components', href: paths.components }, { name: 'Copy To Clipboard' }]}
           />
         </Container>
-      </Box>
+      </Box> */}
 
-      <Container sx={{ my: 10 }}>
+      <Container sx={{ my: 5 }}>
         <Card sx={{ p: 5 }}>
           <Box
             display="grid"
-            gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+            gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)' }}
             gap={5}
           >
-            <Stack spacing={2}>
+            {/* <Stack spacing={2}>
               <Typography variant="overline" sx={{ color: 'text.secondary' }}>
                 on Change
               </Typography>
@@ -101,13 +105,26 @@ export default function CopyToClipboardView() {
                   ),
                 }}
               />
-            </Stack>
+            </Stack> */}
 
             <Stack spacing={2}>
-              <Typography variant="overline" sx={{ color: 'text.secondary' }}>
-                on Double Click
-              </Typography>
-
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography variant="overline" sx={{ color: 'text.secondary' }}>
+                  The Essentials
+                </Typography>
+                <Tooltip title="Copy">
+                  <IconButton onClick={() => onCopy(textOnClick)}>
+                    <Iconify icon="eva:copy-fill" width={24} />
+                  </IconButton>
+                </Tooltip>
+              </Box>
               <Typography onClick={handleClick}>{textOnClick}</Typography>
             </Stack>
           </Box>

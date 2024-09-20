@@ -15,7 +15,6 @@ import { UploadProps } from './types';
 import RejectionFiles from './errors-rejection-files';
 import MultiFilePreview from './preview-multi-file';
 import SingleFilePreview from './preview-single-file';
-import SingleFileUpload from './single-file';
 
 // ----------------------------------------------------------------------
 
@@ -98,8 +97,7 @@ export default function Upload({
   const renderMultiPreview = hasFiles && (
     <>
       <Box sx={{ my: 3 }}>
-        {/* <MultiFilePreview files={files} thumbnail={thumbnail} onRemove={onRemove} /> */}
-        <SingleFileUpload file={file} onRemove={onDelete} sx={{ mt: 2 }} />
+        <MultiFilePreview files={files} thumbnail={thumbnail} onRemove={onRemove} />
       </Box>
 
       <Stack direction="row" justifyContent="flex-end" spacing={1.5}>

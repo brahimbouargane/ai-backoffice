@@ -227,17 +227,36 @@ import { InputAdornment, TextField, Tabs, Tab } from '@mui/material';
 import Iconify from 'src/components/iconify/iconify';
 import { useSettingsContext } from 'src/components/settings';
 import { ChatView } from '../chat/view';
+import CopyToClipboardView from '../_examples/extra/copy-to-clipboard-view';
+import BasicTable from '../_examples/mui/table-view/basic-table';
 
 // ----------------------------------------------------------------------
 
 export default function AIInteractionView() {
   const settings = useSettingsContext();
   const [selectedTab, setSelectedTab] = useState(0);
+  const [searchQuery, setSearchQuery] = useState<any>('');
+  const [searchResults, setSearchResults] = useState<any>(null);
 
   const handleTabChange = (event: any, newValue: any) => {
     setSelectedTab(newValue);
   };
-
+  const handleSearchChange = (event: any) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearch = async () => {
+    if (!searchQuery) return; // Add any additional validation as necessary
+    const response = await fetch('http://192.168.11.174:5000/ask_question', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question: searchQuery }),
+    });
+    const data = await response.json();
+    setSearchResults(data); // Handle your response data as needed
+  };
+  console.log(searchResults);
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Typography variant="h4"> AI Interaction </Typography>
@@ -267,6 +286,13 @@ export default function AIInteractionView() {
             variant="outlined"
             placeholder="Search..."
             fullWidth
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSearch();
+              }
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -282,52 +308,9 @@ export default function AIInteractionView() {
               },
             }}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              mt: 5,
-              gap: 5,
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                mt: 4,
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 100,
-                  height: 100,
-                  borderRadius: 2,
-                  mt: 8,
-                  border: '2px solid',
-                  bgcolor: (theme) => alpha(theme.palette.background.paper, 0.8),
-                  cursor: 'pointer',
-                  transition: 'transform 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    bgcolor: '#f5f5f5',
-                  },
-                }}
-              >
-                <Iconify icon="ep:circle-plus-filled" width="1.5em" height="1.5em" />
-              </Box>
-              <Typography variant="h6" sx={{ mt: 2 }}>
-                New
-              </Typography>
-            </Box>
-            {/* Other search view boxes... */}
-          </Box>
+          {searchResults && <BasicTable data={searchResults.result} />}
+          {/* <CopyToClipboardView />
+          <BasicTable /> */}
         </Box>
       ) : (
         <ChatView />

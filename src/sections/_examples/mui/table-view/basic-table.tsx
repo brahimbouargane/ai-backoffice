@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 // @mui
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -23,16 +24,16 @@ const TABLE_DATA = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'dessert', label: 'Dessert (100g serving)' },
-  { id: 'calories', label: 'Calories', align: 'right' },
-  { id: 'fat', label: 'Fat (g)', align: 'right' },
-  { id: 'carbs', label: 'Carbs (g)', align: 'right' },
-  { id: 'protein', label: 'Protein (g)', align: 'right' },
+  { id: 'nom', label: 'nom' },
+  { id: 'buts', label: 'buts', align: 'right' },
+  { id: 'cartons_jaunes', label: 'cartons jaunes', align: 'right' },
+  { id: 'cartons_rouges', label: 'cartons rouges', align: 'right' },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function BasicTable() {
+// eslint-disable-next-line react/prop-types
+export default function BasicTable({ data = [] }) {
   return (
     <TableContainer sx={{ mt: 3, overflow: 'unset' }}>
       <Scrollbar>
@@ -40,13 +41,12 @@ export default function BasicTable() {
           <TableHeadCustom headLabel={TABLE_HEAD} />
 
           <TableBody>
-            {TABLE_DATA.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+            {data.map((row: any) => (
+              <TableRow key={row[0]}>
+                <TableCell>{row[0]}</TableCell>
+                <TableCell align="right">{row[1]}</TableCell>
+                <TableCell align="right">{row[2]}</TableCell>
+                <TableCell align="right">{row[3]}</TableCell>
               </TableRow>
             ))}
           </TableBody>
